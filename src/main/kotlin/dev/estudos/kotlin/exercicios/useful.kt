@@ -38,3 +38,20 @@ fun readInt(): Int {
         readInt()
     }
 }
+
+//fun readString(): Int {
+//
+//    val valor: String = readLine().toString()
+//
+//    if (valor.isBlank()) {
+//        println("You let the field empty. Finishing the program. Bye ;)")
+//        exitProcess(1)
+//    }
+//
+//    return try {
+//        valor.
+//    } catch (e: Exception) {
+//        println("Please, inform a valid number.")
+//        readInt()
+//    }
+//}
