@@ -1,7 +1,5 @@
 package dev.estudos.kotlin.exercicios
 
-import java.time.temporal.ChronoUnit
-
 /**
  * Faça um algoritmo que leia a idade de uma pessoa expressa em dias e mostre-a expressa em anos, meses e dias.
  * */
@@ -19,8 +17,6 @@ fun main() {
     myMap.forEach {
         println("${it.key}: ${it.value}")
     }
-
-    println(ChronoUnit.YEARS.ordinal)
 }
 
 
