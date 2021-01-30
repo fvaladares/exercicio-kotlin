@@ -14,7 +14,7 @@ fun main() {
     val p1: Point = newPoint()
     val p2: Point = newPoint()
 
-    println("\nThe distance between P1 and P2 is ${distanceCalc(p1, p2)}")
+    println("\nThe distance between P1 and P2 is ${p1.distanceTo(p2)}")
 }
 
 // Convert the String from terminal in Int, or return 0 if there is some problem.
@@ -31,11 +31,18 @@ fun newPoint(): Point {
     return Point(x, y)
 }
 
-fun distanceCalc(p1: Point, p2: Point): Double {
+//fun distanceCalc(p1: Point, p2: Point): Double {
+//
+//    return sqrt(((p2.x - p1.x).toDouble().pow(2)) + ((p2.y - p2.x).toDouble().pow(2)))
+//}
 
-    return sqrt(((p2.x - p1.x).toDouble().pow(2)) + ((p2.y - p2.x).toDouble().pow(2)))
+
+class Point(private val x: Int, private val y: Int) {
+    fun distanceTo(p2: Point): Double {
+        return sqrt(
+            ((p2.x - this.x).toDouble().pow(2)) +
+                    ((p2.y - this.y).toDouble().pow(2))
+        )
+    }
 }
-
-
-class Point(val x: Int, val y: Int)
 
