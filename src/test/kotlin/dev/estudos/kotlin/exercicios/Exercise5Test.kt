@@ -26,11 +26,11 @@ internal class Exercise5Test {
         fun initAll(exercise5Test: Exercise5Test) {
 
             exercise5Test.valuesList.apply {
-                add(Exercise5(listOf<Double>(6.3, 7.9, 1.0)))
-                add(Exercise5(listOf<Double>(5.0, 6.0, 7.0)))
-                add(Exercise5(listOf<Double>(0.0, 0.0, 0.0)))
-                add(Exercise5(listOf<Double>(1.0, 1.0, 1.0)))
-                add(Exercise5(listOf<Double>(10.0, 10.0, 0.0)))
+                add(Exercise5(listOf(6.3, 7.9, 1.0)))
+                add(Exercise5(listOf(5.0, 6.0, 7.0)))
+                add(Exercise5(listOf(0.0, 0.0, 0.0)))
+                add(Exercise5(listOf(1.0, 1.0, 1.0)))
+                add(Exercise5(listOf(10.0, 10.0, 0.0)))
             }
 
             exercise5Test.answerList.apply {
