@@ -1,4 +1,4 @@
 # exercicio-kotlin
-# LocalizaLabs - Kotlin exercises (first)
+# LocalizaLabs - Kotlin exercises
 
-This repository contains the first list of exercises from the localiza labs program.
+This repository contains the answares for the first list of exercises from the #Localizalabs program.
