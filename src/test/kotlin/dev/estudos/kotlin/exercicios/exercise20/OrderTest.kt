@@ -9,6 +9,7 @@ import org.junit.jupiter.params.provider.CsvSource
 
 internal class OrderTest {
     private lateinit var order: Order
+    private lateinit var order2: Order
 
     @Test
     fun add() {
@@ -45,12 +46,35 @@ internal class OrderTest {
     @CsvSource(
         "1001,  1,      5.32",
         "1324,  10,     64.50",
-        "6548,   3,     7.11",
-        "987,    8,     42.56",
-        "7623,   10,    64.50"
+        "6548,  3,      7.11",
+        "987,   8,      42.56",
+        "7623,  10,     64.50",
+        "1111,  1,      5.32",
     )
     fun finalPrice(cod: Int, amount: Int, expected: Double) {
-        assertEquals(expected, order.finalPrice(cod, amount))
+        try {
+            val finalPrice = order.finalPrice(cod, amount)
+            assertEquals(expected, finalPrice)
+        } catch (e: Throwable) {
+            println("Invalid code informed.")
+        }
+    }
+
+    @ParameterizedTest
+    @CsvSource(
+        "ABCD,  1,      5.30",
+        "XYPK,  10,     60.00",
+        "KLMP,  20,     64.00",
+        "QRST,  30,     75.00",
+        "12345,  30,     75.00"
+    )
+    fun finalPrice(cod: String, amount: Int, expected: Double) {
+        try {
+            val finalPrice = order.finalPrice(cod, amount)
+            assertEquals(expected, finalPrice)
+        } catch (e: Throwable) {
+            println("Invalid code informed.")
+        }
     }
 
     // Create an object with the values gave by US.
@@ -63,7 +87,11 @@ internal class OrderTest {
             Product(1324, 6.45),
             Product(6548, 2.37),
             Product(987, 5.32),
-            Product(7623, 6.45)
+            Product(7623, 6.45),
+            Product("ABCD", 5.30),
+            Product("XYPK", 6.00),
+            Product("KLMP", 3.20),
+            Product("QRST", 2.50)
         )
         order.addAll(products)
     }

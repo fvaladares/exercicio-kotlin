@@ -1,0 +1,1 @@
+I implemented this exercise with the solution of the Exercise 2. 
