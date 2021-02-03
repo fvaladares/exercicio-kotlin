@@ -3,6 +3,7 @@ package dev.estudos.kotlin.exercicios
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.BeforeAll
 import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.assertAll
 
 internal class Exercise5Test {
     private var valuesList = mutableListOf<Exercise5>()
@@ -11,13 +12,21 @@ internal class Exercise5Test {
 
     @Test
     fun weightedAverageNotes() {
-        for (it in valuesList.zip(answerList)) {
-            Assertions.assertEquals(it.second, it.first.weightedAverageNotes())
+        initAll(this)
+
+        val results = mutableListOf<Double>()
+
+        for (exercise5 in valuesList) {
+            results.add(exercise5.weightedAverageNotes())
         }
-//        val exercise5 = Exercise5(listOf<Double>(6.3, 7.9, 1.0))
-//        val average = exercise5.weightedAverageNotes()
-//
-//        Assertions.assertEquals(4.13, average)
+
+        assertAll("Compare several weighted means",
+            {
+                results.zip(answerList).forEach {
+                    Assertions.assertEquals(it.second, it.first)
+                }
+            }
+        )
     }
 
 
