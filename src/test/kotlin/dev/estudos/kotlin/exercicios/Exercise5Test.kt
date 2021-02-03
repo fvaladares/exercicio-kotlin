@@ -29,6 +29,13 @@ internal class Exercise5Test {
         )
     }
 
+    @Test
+    fun reduceExample() {
+        initAll(this)
+        println(answerList.reduce { acc, d -> acc + d })
+        println(valuesList.map { it.weightedAverageNotes() }.reduce { acc, d -> acc + d })
+    }
+
 
     companion object {
         @BeforeAll
