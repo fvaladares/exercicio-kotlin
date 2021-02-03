@@ -55,7 +55,7 @@ internal class OrderTest {
         try {
             val finalPrice = order.finalPrice(cod, amount)
             assertEquals(expected, finalPrice)
-        } catch (e: Throwable) {
+        } catch (e: IllegalArgumentException) {
             println("Invalid code informed.")
         }
     }
@@ -72,7 +72,7 @@ internal class OrderTest {
         try {
             val finalPrice = order.finalPrice(cod, amount)
             assertEquals(expected, finalPrice)
-        } catch (e: Throwable) {
+        } catch (e: IllegalArgumentException) {
             println("Invalid code informed.")
         }
     }

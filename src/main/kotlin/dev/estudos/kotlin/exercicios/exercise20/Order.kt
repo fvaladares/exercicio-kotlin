@@ -32,7 +32,7 @@ class Order(val orderNumber: Int) {
      * @param cod, amount
      * @return Double
      */
-    @Throws(Throwable::class)
+    @Throws(IllegalArgumentException::class)
     fun finalPrice(cod: Int, amount: Int): Double {
         val test = products
             .filter { it.code == cod }
@@ -54,10 +54,7 @@ class Order(val orderNumber: Int) {
             )
             return ((test.toBigDecimal() * amount.toBigDecimal()).toDouble())
         } else {
-            throw Throwable(
-                "Invalid code",
-                Throwable()
-            )
+            throw IllegalArgumentException("Invalid code")
         }
     }
 
@@ -65,7 +62,7 @@ class Order(val orderNumber: Int) {
      * @param cod, amount
      * @return Double
      */
-    @Throws(Throwable::class)
+    @Throws(IllegalArgumentException::class)
     fun finalPrice(cod: String, amount: Int): Double {
         val test = products
             .filter { it.code == cod }
@@ -87,10 +84,7 @@ class Order(val orderNumber: Int) {
             )
             return ((test.toBigDecimal() * amount.toBigDecimal()).toDouble())
         } else {
-            throw Throwable(
-                "Invalid code",
-                Throwable()
-            )
+            throw IllegalArgumentException("Invalid code")
         }
     }
 }
