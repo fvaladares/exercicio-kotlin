@@ -9,7 +9,6 @@ import org.junit.jupiter.params.provider.CsvSource
 
 internal class OrderTest {
     private lateinit var order: Order
-    private lateinit var order2: Order
 
     @Test
     fun add() {
