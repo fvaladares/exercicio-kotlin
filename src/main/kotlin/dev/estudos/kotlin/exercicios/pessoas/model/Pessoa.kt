@@ -28,16 +28,16 @@ class Pessoa private constructor(
 
         when {
             checkHeight && checkWeight -> {
-                msg.format("Height and Weight", "those fields")
-                throw (IllegalStateException(msg))
+
+                throw (IllegalStateException(msg.format("Height and Weight", "those fields")))
             }
             checkHeight -> {
-                msg.format("Height", "this field")
-                throw (IllegalStateException(msg))
+
+                throw (IllegalStateException(msg.format("Height", "this field")))
             }
             checkWeight -> {
-                msg.format("Weight", "this field")
-                throw (IllegalStateException(msg))
+
+                throw (IllegalStateException(msg.format("Weight", "this field")))
             }
         }
 
@@ -55,26 +55,55 @@ class Pessoa private constructor(
 
         var id = 0
 
+        /**
+         * Creates a new People object and returns a self-reference
+         * Validations: CPF (isNumber and size == 11)
+         * Data: This field receives a String with the format: dd/MM/yyyy
+         */
+        @Throws(ExceptionInInitializerError::class)
         fun create(
             name: String,
             birthday: String,
             phone: String,
             cpf: String,
             rg: String,
+            sex: Sex = Sex.UNDEFINED,
+            height: BigDecimal = BigDecimal.ZERO,
+            weight: BigDecimal = BigDecimal.ZERO,
             address: Address,
         ): Pessoa {
-            val p = Pessoa(
-                id = id,
-                name = name,
-                birthday = LocalDate.parse(birthday, DateTimeFormatter.ofPattern("dd/MM/yyyy")),
-                phone = phone,
-                cpf = cpf,
-                rg = rg,
-                address = address
-            )
-            id++
 
-            return p
+
+            when {
+                cpf.toIntOrNull() == null ->
+                    throw ExceptionInInitializerError("..| The CPF field only receives numbers (11) |..")
+
+
+                cpf.length != 11 ->
+                    throw ExceptionInInitializerError("..| The CPF field needs to be 11 numbers long. |..")
+
+
+                else -> {
+                    val p = Pessoa(
+                        id = id,
+                        name = name,
+                        birthday = LocalDate.parse(
+                            birthday,
+                            DateTimeFormatter.ofPattern("dd/MM/yyyy")
+                        ),
+                        phone = phone,
+                        cpf = cpf,
+                        rg = rg,
+                        sex = sex,
+                        height = height,
+                        weight = weight,
+                        address = address,
+                    )
+                    id++
+
+                    return p
+                }
+            }
         }
     }
 }

@@ -10,7 +10,17 @@ internal class PessoaTest {
 
     @Test
     fun calcIMC() {
-        assertEquals(BigDecimal.ZERO, pessoa.calcIMC())
+        val imc: BigDecimal
+
+        try {
+            imc = pessoa.calcIMC()
+            assertEquals(BigDecimal.ZERO, imc)
+        } catch (e: IllegalStateException) {
+            println()
+            println("---| ${e.message} |---")
+            println()
+        }
+
     }
 
     @Test
@@ -20,7 +30,7 @@ internal class PessoaTest {
             name = "Test User",
             birthday = "16/11/1982",
             phone = "31 993576193",
-            cpf = "00011122233",
+            cpf = "AAAAAAAAAAA",
             rg = "mg00111222",
             Address(
                 "Rua Dama da Noite",
