@@ -54,8 +54,13 @@ class PessoaRepository {
         return TODO("Filter people by name")
     }
 
+
+    // TODO("Refactor to return just one result")
     fun findByCPF(cpf: String): List<Pessoa> {
-        return TODO("Create the CPF filter")
+
+        return peopleList.filter {
+            it.cpf == cpf
+        }
     }
 
     fun findBy(search: (p: Pessoa) -> Boolean): List<Pessoa> {

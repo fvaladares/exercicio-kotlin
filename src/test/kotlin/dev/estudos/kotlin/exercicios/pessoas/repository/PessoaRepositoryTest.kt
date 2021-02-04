@@ -85,6 +85,13 @@ internal class PessoaRepositoryTest {
             add(pessoa2)
         }
         getAll()
+        println("""
+            
+            
+            Result filtering by CPF = ${pessoa.cpf}            
+                Result: ${findByCPF(pessoa.cpf).joinToString("\n")}
+            
+            """.trimIndent())
     }
 
     @Test
@@ -101,7 +108,8 @@ internal class PessoaRepositoryTest {
     }
 
     @Test
-    fun findByCPF() {
+    fun findByCPF(cpf: String): List<Pessoa> {
+        return repository.findByCPF(cpf)
     }
 
     @Test
