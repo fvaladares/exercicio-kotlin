@@ -2,12 +2,13 @@ package dev.estudos.kotlin.exercicios.calculadora
 
 object Calc {
 
-    fun add(a: Double, b: Double): Double = (a + b)
-
     /**
-     * @param operation
+     * This method receives three parameters: x: Double, y: Double, Lambda and returns a Double
      */
-    fun operation(operation: Double): Double {
-        return operation
-    }
+    fun operation(
+        x: Double,
+        y: Double,
+        customFunction: (inputA: Double, inputB: Double) -> Double,
+    ): Double =
+        customFunction(x, y)
 }

@@ -19,7 +19,7 @@ class PessoaRepository {
 
     fun getById(id: Int): Pessoa {
         TODO("Filter people by id")
-        return Pessoa()
+        return TODO()
     }
 
     fun findByName(nome: String): List<Pessoa> {
