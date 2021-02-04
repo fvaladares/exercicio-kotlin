@@ -26,11 +26,15 @@ internal class PessoaTest {
     @Test
     fun testPessoa() {
 
+        println()
+        println("1234567890".length)
+        println()
+
         val pessoa2 = Pessoa.create(
             name = "Test User",
             birthday = "16/11/1982",
             phone = "31 993576193",
-            cpf = "AAAAAAAAAAA",
+            cpf = "01234567890",
             rg = "mg00111222",
             address = Address(
                 "Rua Dama da Noite",
@@ -42,8 +46,8 @@ internal class PessoaTest {
         )
 
         println(pessoa)
-        println(pessoa2)
-        println(pessoa2 == pessoa)
+//        println(pessoa2)
+//        println(pessoa2 == pessoa)
 
     }
 

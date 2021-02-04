@@ -1,5 +1,6 @@
 package dev.estudos.kotlin.exercicios.pessoas.model
 
+import dev.estudos.kotlin.exercicios.pessoas.util.fail
 import java.math.BigDecimal
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
@@ -55,6 +56,20 @@ class Pessoa private constructor(
 
         var id = 0
 
+        private fun validateRG(sentence: String): Boolean {
+            var count = 0
+
+            sentence.forEach {
+                if (it in '0'..'9') count++
+            }
+
+            return when {
+                count >= 6 -> true
+                else -> false
+            }
+        }
+
+
         /**
          * Creates a new People object and returns a self-reference
          * Validations: CPF (isNumber and size == 11)
@@ -72,16 +87,15 @@ class Pessoa private constructor(
             weight: BigDecimal = BigDecimal.ZERO,
             address: Address,
         ): Pessoa {
-
-
             when {
-                cpf.toIntOrNull() == null ->
-                    throw ExceptionInInitializerError("..| The CPF field only receives numbers (11) |..")
-
-
                 cpf.length != 11 ->
-                    throw ExceptionInInitializerError("..| The CPF field needs to be 11 numbers long. |..")
+                    fail("..| The CPF field needs to be 11 numbers long. |..")
 
+                cpf.trim().toLongOrNull() == null ->
+                    fail("..| The CPF field only receives numbers (11) *** Data informed: $cpf *** |..")
+
+                !validateRG(rg) ->
+                    fail("..| The RG field needs at least 6 numbers |..")
 
                 else -> {
                     val p = Pessoa(
