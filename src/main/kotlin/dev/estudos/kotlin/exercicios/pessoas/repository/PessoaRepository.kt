@@ -8,6 +8,7 @@ class PessoaRepository {
 
 
     fun add(pessoa: Pessoa): PessoaRepository {
+        TODO("Check if the CPF field is Unique")
         return this
     }
 

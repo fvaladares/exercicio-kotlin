@@ -32,7 +32,7 @@ internal class PessoaTest {
             phone = "31 993576193",
             cpf = "AAAAAAAAAAA",
             rg = "mg00111222",
-            Address(
+            address = Address(
                 "Rua Dama da Noite",
                 "200",
                 "Morada dos hibiscos",
@@ -56,7 +56,7 @@ internal class PessoaTest {
             phone = "31 993576193",
             cpf = "00011122233",
             rg = "mg00111222",
-            Address(
+            address = Address(
                 "Rua Dama da Noite",
                 "200",
                 "Morada dos hibiscos",
