@@ -2,20 +2,22 @@ package dev.estudos.kotlin.exercicios.pessoas.model
 
 import java.math.BigDecimal
 import java.time.LocalDate
+import java.time.format.DateTimeFormatter
 
 
-class Pessoa() {
+class Pessoa private constructor(
+    private var id: Int = 0,
+    var name: String,
+    var birthday: LocalDate,
+    var phone: String,
+    var sex: Sex = Sex.UNDEFINED,
+    var cpf: String,
+    var rg: String,
+    var height: BigDecimal = BigDecimal.ZERO,
+    var weight: BigDecimal = BigDecimal.ZERO,
+    var address: Address,
+) {
 
-    private var id: Int = 0
-    lateinit var name: String
-    lateinit var birthday: LocalDate
-    lateinit var phone: String
-    lateinit var sex: Sex
-    lateinit var cpf: String
-    lateinit var rg: String
-    lateinit var height: BigDecimal
-    lateinit var weight: BigDecimal
-    lateinit var address: Address
 
     @Throws(IllegalArgumentException::class)
     fun calcIMC(): BigDecimal {
@@ -43,11 +45,36 @@ class Pessoa() {
         return (weight / (height.pow(2)))
     }
 
-    companion object {
+    override fun toString(): String {
+        return """
+            Pessoa (id=$id, name=$name, cpf=$cpf, rg=$rg, birthday=$birthday, phone=$phone, $address) 
+        """.trimIndent()
+    }
 
-//        var id = 0
-//        fun createPessoa(name: String, birthday: LocalDate, phone: String, cpf: String, rg: String): Pessoa {
-//            return Pessoa(name = name, birthday = birthday, phone = phone, cpf = cpf, rg = rg)
-//        }
+    companion object Factory {
+
+        var id = 0
+
+        fun create(
+            name: String,
+            birthday: String,
+            phone: String,
+            cpf: String,
+            rg: String,
+            address: Address,
+        ): Pessoa {
+            val p = Pessoa(
+                id = id,
+                name = name,
+                birthday = LocalDate.parse(birthday, DateTimeFormatter.ofPattern("dd/MM/yyyy")),
+                phone = phone,
+                cpf = cpf,
+                rg = rg,
+                address = address
+            )
+            id++
+
+            return p
+        }
     }
 }
