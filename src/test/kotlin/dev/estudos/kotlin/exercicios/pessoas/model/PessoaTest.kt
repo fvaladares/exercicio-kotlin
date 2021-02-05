@@ -1,29 +1,57 @@
 package dev.estudos.kotlin.exercicios.pessoas.model
 
-import org.junit.jupiter.api.Assertions.assertEquals
-import org.junit.jupiter.api.BeforeEach
-import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.*
+import org.junit.jupiter.api.Assertions.assertNotNull
 import java.math.BigDecimal
 
 internal class PessoaTest {
     lateinit var pessoa: Pessoa
 
     @Test
-    fun calcIMC() {
-        val imc: BigDecimal
+    @DisplayName("user don't set the height and weight")
+    fun calcIMCFailWeightHeight() {
 
-        try {
-            imc = pessoa.calcIMC()
-            assertEquals(BigDecimal.ZERO, imc)
-        } catch (e: IllegalStateException) {
-            println()
-            println("---| ${e.message} |---")
-            println()
+        val msg = assertThrows<Exception> {
+            pessoa.calcIMC()
         }
-
+        println(msg.message)
     }
 
     @Test
+    @DisplayName("user don't set the height")
+    fun calcIMCFailHeight() {
+
+        pessoa.weight = BigDecimal(84.00)
+        val msg = assertThrows<Exception> {
+            pessoa.calcIMC()
+        }
+        println(msg.message)
+    }
+
+
+    @Test
+    @DisplayName("user don't set the weight")
+    fun calcIMCFailWeight() {
+
+        pessoa.height = BigDecimal(1.87)
+        val msg = assertThrows<Exception> {
+            pessoa.calcIMC()
+        }
+        println(msg.message)
+    }
+
+    @Test
+    @DisplayName("user set the height")
+    fun calcIMCPass() {
+        pessoa.weight = BigDecimal(84.00)
+        pessoa.height = BigDecimal(1.87)
+        assertDoesNotThrow {
+            pessoa.calcIMC()
+        }
+    }
+
+    @Test
+    @DisplayName("Check if the object was created correctly")
     fun testPessoa() {
 
         println()
@@ -44,11 +72,8 @@ internal class PessoaTest {
                 "MG"
             ),
         )
-
-        println(pessoa)
-//        println(pessoa2)
-//        println(pessoa2 == pessoa)
-
+        assertNotNull(pessoa2)
+        println(pessoa2)
     }
 
 

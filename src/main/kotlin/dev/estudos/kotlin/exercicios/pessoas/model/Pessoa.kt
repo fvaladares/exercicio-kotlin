@@ -20,35 +20,33 @@ class Pessoa private constructor(
 ) {
 
 
-    @Throws(IllegalArgumentException::class)
+    @Throws(UninitializedPropertyAccessException::class)
     fun calcIMC(): BigDecimal {
         val checkWeight = weight.compareTo(BigDecimal.ZERO) == 0
         val checkHeight = height.compareTo(BigDecimal.ZERO) == 0
-        var msg = """%s can't be ZERO, please, update %s.""";
-
+        val msg = """
+            
+                %s can't be ZERO, please, update %s.
+                
+                """.trimIndent()
 
         when {
-            checkHeight && checkWeight -> {
+            checkHeight && checkWeight ->
+                throw (UninitializedPropertyAccessException(msg.format("Height and Weight", "those fields")))
 
-                throw (IllegalStateException(msg.format("Height and Weight", "those fields")))
-            }
-            checkHeight -> {
+            checkHeight ->
+                throw (UninitializedPropertyAccessException(msg.format("Height", "this field")))
 
-                throw (IllegalStateException(msg.format("Height", "this field")))
-            }
-            checkWeight -> {
-
-                throw (IllegalStateException(msg.format("Weight", "this field")))
-            }
+            checkWeight ->
+                throw (UninitializedPropertyAccessException(msg.format("Weight", "this field")))
         }
-
 
         return (weight / (height.pow(2)))
     }
 
     override fun toString(): String {
         return """
-            Pessoa (id=$id, name=$name, cpf=$cpf, rg=$rg, birthday=$birthday, phone=$phone, $address) 
+            Pessoa (id=$id, name=$name, cpf=$cpf, sex=$sex, rg=$rg, birthday=$birthday, phone=$phone, $address) 
         """.trimIndent()
     }
 
