@@ -2,6 +2,7 @@ package dev.estudos.kotlin.exercicios.pessoas.repository
 
 import dev.estudos.kotlin.exercicios.pessoas.model.Person
 import dev.estudos.kotlin.exercicios.pessoas.util.fail
+import java.util.*
 
 class PeopleRepository {
 
@@ -43,18 +44,24 @@ class PeopleRepository {
         return validator.isEmpty()
     }
 
+    // Check if the list is empty
+    private fun isEmpty(): Boolean {
+        return peopleList.size == 0
+    }
 
+    @Throws(IllegalStateException::class)
     fun getAll(): List<Person> {
+        if (isEmpty()) throw (IllegalStateException("The list is empty"))
         return this.peopleList.toList()
     }
 
-
+    @Throws(NoSuchElementException::class)
     fun getById(id: Int): Person {
-        TODO("Filter people by id")
-        return TODO()
+        return peopleList.first { it.id == id }
     }
 
     fun findByName(nome: String): List<Person> {
+        if (isEmpty()) throw (IllegalStateException("The list is empty"))
         return TODO("Filter people by name")
     }
 
@@ -63,21 +70,25 @@ class PeopleRepository {
      * Returns a list with the filter result
      * If the CPF was not found, the list will be empty
      */
-    fun findByCPF(cpf: String): List<Person> {
-        return peopleList.filter { it.cpf == cpf }
+    fun findByCPF(cpf: String): Person {
+        if (isEmpty()) throw (IllegalStateException("The list is empty"))
+        return peopleList.first { it.cpf == cpf }
     }
 
     fun findBy(search: (p: Person) -> Boolean): List<Person> {
+        if (isEmpty()) throw (IllegalStateException("The list is empty"))
         TODO("Create a filter that accepts a lambda expression")
         return emptyList()
     }
 
     fun update(person: Person): Boolean {
+        if (isEmpty()) throw (IllegalStateException("The list is empty"))
         TODO("Implement the update function")
         return false
     }
 
     fun delete(id: Int): Boolean {
+        if (isEmpty()) throw (IllegalStateException("The list is empty"))
         TODO("Implement the delete function")
         return false
     }

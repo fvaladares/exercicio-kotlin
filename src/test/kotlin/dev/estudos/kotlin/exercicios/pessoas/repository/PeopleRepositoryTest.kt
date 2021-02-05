@@ -3,9 +3,7 @@ package dev.estudos.kotlin.exercicios.pessoas.repository
 import dev.estudos.kotlin.exercicios.pessoas.model.Address
 import dev.estudos.kotlin.exercicios.pessoas.model.Person
 import org.junit.jupiter.api.*
-import org.junit.jupiter.api.Assertions.assertAll
-import org.junit.jupiter.api.Assertions.assertEquals
-import org.junit.jupiter.api.Assertions.assertNotNull
+import org.junit.jupiter.api.Assertions.*
 
 internal class PeopleRepositoryTest {
 
@@ -58,7 +56,7 @@ internal class PeopleRepositoryTest {
                 Person.create(
                     name = "${alphabet.elementAt(i)}user Name",
                     birthday = if (i < 10) "16/11/198$i" else "16/11/19$i",
-                    phone = "31 93576193$i",
+                    phone = if (i < 10) "31 93576193$i" else "31 3576-19$i",
                     cpf = if (i < 10) "2111111333$i" else "111111111$i",
                     rg = "mg0011122$i",
                     address = Address(
@@ -76,10 +74,10 @@ internal class PeopleRepositoryTest {
         repository.addAll(people = peopleList)
     }
 
-    @AfterEach
-    private fun cleanUp() {
-        repository = PeopleRepository()
-    }
+//    @AfterEach
+//    private fun cleanUp() {
+//        repository = PeopleRepository()
+//    }
 
     /**
      * Mock data (end)
@@ -103,7 +101,7 @@ internal class PeopleRepositoryTest {
 
     @Test
     @DisplayName("Test the return of getAll method")
-    fun getAll() {
+    fun testGetAll() {
         val newPeopleList = repository.getAll()
         Assertions.assertEquals(peopleList, newPeopleList)
 
@@ -116,6 +114,16 @@ internal class PeopleRepositoryTest {
     }
 
     @Test
+    @DisplayName("Try to get all in an empty list")
+    fun testGetAllFail() {
+        repository = PeopleRepository()
+        assertThrows<IllegalStateException> {
+            repository.getAll()
+        }
+    }
+
+
+    @Test
     @DisplayName("findCPF with a valid value")
     fun findByCPFValidCPF() {
         val cpf = "21111113333"
@@ -123,18 +131,18 @@ internal class PeopleRepositoryTest {
         assertAll(
             "Testing the findByCPF method",
             { assertNotNull(localPerson) },
-            { assertEquals(cpf, localPerson.first().cpf) }
+            { assertEquals(cpf, localPerson.cpf) }
         )
 
     }
+
 
     @Test
     @DisplayName("findCPF with an invalid value")
     fun findByCPFInvalidCPF() {
         val cpf = ""
-        val person = repository.findByCPF(cpf)
-        assertNotNull(person)
-        assertEquals(0, person.size)
+
+        assertThrows<NoSuchElementException> { repository.findByCPF(cpf) }
     }
 
     @Test
@@ -149,9 +157,26 @@ internal class PeopleRepositoryTest {
     fun delete() {
     }
 
+//    @Test
+//    fun testGetByIdPass() {
+//        val id = 5
+//        var person: Person
+//
+//        assertDoesNotThrow{
+//            person = repository.getById(id)
+//            println(person)
+//        }
+//
+//
+//    }
+
     @Test
-    fun getById() {
+    @DisplayName("Test getById with an invalid ID")
+    fun testGetByIdFailInvalidId() {
+        val id = 3599
+        assertThrows<NoSuchElementException> { repository.getById(id).id }
     }
+
 
     @Test
     fun findByName() {

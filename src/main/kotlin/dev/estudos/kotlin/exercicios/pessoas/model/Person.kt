@@ -7,7 +7,7 @@ import java.time.format.DateTimeFormatter
 
 
 data class Person constructor(
-    private var id: Int = 0,
+    var id: Int = 0,
     var name: String,
     var birthday: LocalDate,
     var phone: String,
@@ -61,13 +61,30 @@ data class Person constructor(
             }
         }
 
-        private fun validatePhone(phoneNumber: String): Boolean {
+        private fun phoneValidator(phoneNumber: String): Boolean {
             val purePhoneNumber = phoneNumber.replace('.', ' ')
                 .replace('-', ' ').filter { !it.isWhitespace() }
             return when {
                 purePhoneNumber.toLongOrNull() == null -> false
                 purePhoneNumber.length < 10 || purePhoneNumber.length > 11 -> false
                 else -> true
+            }
+        }
+
+        private fun nameValidator(name: String): Boolean {
+            val partsOfName = name.split(" ")
+
+            return when {
+                partsOfName.size < 2 ->
+                    false // At least two words
+
+                partsOfName.size < 2 ->
+                    false // At least one word with more the 2 characters
+
+                partsOfName.first().length > 1 && partsOfName.size >= 2 && partsOfName.last().length > 1 ->
+                    return true // Accept one letter if the name has more then 2 words
+
+                else -> false
             }
         }
 
@@ -99,7 +116,7 @@ data class Person constructor(
                 !validateRG(rg) ->
                     fail("..| The RG field needs at least 6 numbers |..")
 
-                !validatePhone(phone) ->
+                !phoneValidator(phone) ->
                     fail("""=== 
                         
                         ..|The phone number must have 10 or 11 digits. 31 1234-5678 or 31 91234-5678 |..
@@ -109,10 +126,23 @@ data class Person constructor(
                         ===
                         """.trimMargin())
 
+                !nameValidator(name) ->
+                    fail(
+                        """
+                            ===
+                            
+                            ..| The informed name is invalid. It should have Name and a Surname |..
+                            
+                            Name informed: $name
+                            
+                            ===
+                        """.trimMargin()
+                    )
+
                 else -> {
                     val p = Person(
                         id = id,
-                        name = name,
+                        name = name.split(" ").map { it.capitalize() }.joinToString(" "),
                         birthday = LocalDate.parse(
                             birthday,
                             DateTimeFormatter.ofPattern("dd/MM/yyyy")

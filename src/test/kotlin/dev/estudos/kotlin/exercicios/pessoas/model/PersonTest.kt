@@ -10,7 +10,7 @@ internal class PersonTest {
     @BeforeEach
     fun init() {
         person = Person.create(
-            name = "Test User",
+            name = "Just a Name",
             birthday = "16/11/1982",
             phone = "31 993576193",
             cpf = "00011122233",
@@ -100,7 +100,7 @@ internal class PersonTest {
             pessoa2 = Person.create(
                 name = "Test User",
                 birthday = "16/11/1982",
-                phone = "31 999357-6193",
+                phone = "31 999357-6193", // invalid phone number
                 cpf = "01234567890",
                 rg = "mg00111222",
                 address = Address(
@@ -113,7 +113,29 @@ internal class PersonTest {
             )
             println(pessoa2)
         }
+    }
 
+    @Test
+    @DisplayName("Test the exception when the name do not match with the pattern")
+    fun testNameFail() {
+        var pessoa2: Person
+        assertThrows<ExceptionInInitializerError> {
+            pessoa2 = Person.create(
+                name = "t u",
+                birthday = "16/11/1982",
+                phone = "31 99357-6193",
+                cpf = "01234567890",
+                rg = "mg00111222",
+                address = Address(
+                    "Rua Dama da Noite",
+                    "200",
+                    "Morada dos hibiscos",
+                    "Pedro Leopoldo",
+                    "MG"
+                ),
+            )
+            println(pessoa2)
+        }
     }
 
 
