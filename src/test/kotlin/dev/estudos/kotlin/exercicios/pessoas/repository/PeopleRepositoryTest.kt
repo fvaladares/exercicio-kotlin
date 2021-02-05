@@ -1,7 +1,7 @@
 package dev.estudos.kotlin.exercicios.pessoas.repository
 
 import dev.estudos.kotlin.exercicios.pessoas.model.Address
-import dev.estudos.kotlin.exercicios.pessoas.model.Pessoa
+import dev.estudos.kotlin.exercicios.pessoas.model.Person
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.DisplayName
@@ -12,13 +12,13 @@ internal class PeopleRepositoryTest {
     //Mock data:
 
     val listOfPessoa by lazy {
-        mutableListOf<Pessoa>()
+        mutableListOf<Person>()
     }
 
-    private lateinit var pessoa: Pessoa
-    private lateinit var pessoa2: Pessoa
+    private lateinit var person: Person
+    private lateinit var person2: Person
 
-//    private val pessoa: Pessoa = Pessoa.create(
+//    private val person: Person = Person.create(
 //        name = "Test User",
 //        birthday = "16/11/1982",
 //        phone = "31 993576193",
@@ -33,7 +33,7 @@ internal class PeopleRepositoryTest {
 //        ),
 //    )
 
-    //    private val pessoa2 = Pessoa.create(
+    //    private val person2 = Person.create(
 //        name = "Test User",
 //        birthday = "16/11/1982",
 //        phone = "31 993576193",
@@ -51,7 +51,7 @@ internal class PeopleRepositoryTest {
 
     @BeforeEach
     fun init() {
-        pessoa = Pessoa.create(
+        person = Person.create(
             name = "Test User",
             birthday = "16/11/1982",
             phone = "31 993576193",
@@ -66,7 +66,7 @@ internal class PeopleRepositoryTest {
             ),
         )
 
-        pessoa2 = Pessoa.create(
+        person2 = Person.create(
             name = "Test User",
             birthday = "16/11/1982",
             phone = "31 993576193",
@@ -84,7 +84,7 @@ internal class PeopleRepositoryTest {
         val alphabet = 'A'..'Z'
         for (i in 0..25) {
             listOfPessoa.add(
-                Pessoa.create(
+                Person.create(
                     name = "${alphabet.elementAt(i)}user Name",
                     birthday = if (i < 10) "16/11/198$i" else "16/11/19$i",
                     phone = "31 93576193$i",
@@ -102,7 +102,7 @@ internal class PeopleRepositoryTest {
         }
 
         repository = PeopleRepository()
-        repository.addAll(pessoas = listOfPessoa)
+        repository.addAll(people = listOfPessoa)
     }
 
     @AfterEach
@@ -115,15 +115,15 @@ internal class PeopleRepositoryTest {
     @DisplayName("Try to add one person (new one)")
     fun addNew1() {
         with(repository) {
-            add(pessoa)
-            add(pessoa2)
+            add(person)
+            add(person2)
         }
         getAll()
         println("""
             
             
-            Result filtering by CPF = ${pessoa.cpf}            
-                Result: ${findByCPF(pessoa.cpf).joinToString("\n")}
+            Result filtering by CPF = ${person.cpf}            
+                Result: ${findByCPF(person.cpf).joinToString("\n")}
             
             """.trimIndent())
     }
@@ -142,7 +142,7 @@ internal class PeopleRepositoryTest {
     }
 
 
-    private fun findByCPF(cpf: String): List<Pessoa> {
+    private fun findByCPF(cpf: String): List<Person> {
         return repository.findByCPF(cpf)
     }
 

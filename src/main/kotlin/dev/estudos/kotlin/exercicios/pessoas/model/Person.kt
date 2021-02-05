@@ -6,7 +6,7 @@ import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 
 
-class Pessoa private constructor(
+data class Person constructor(
     private var id: Int = 0,
     var name: String,
     var birthday: LocalDate,
@@ -44,13 +44,7 @@ class Pessoa private constructor(
         return (weight / (height.pow(2)))
     }
 
-    override fun toString(): String {
-        return """
-            Pessoa (id=$id, name=$name, cpf=$cpf, sex=$sex, rg=$rg, birthday=$birthday, phone=$phone, $address) 
-        """.trimIndent()
-    }
-
-    companion object Factory {
+    companion object {
 
         var id = 0
 
@@ -84,7 +78,7 @@ class Pessoa private constructor(
             height: BigDecimal = BigDecimal.ZERO,
             weight: BigDecimal = BigDecimal.ZERO,
             address: Address,
-        ): Pessoa {
+        ): Person {
             when {
                 cpf.length != 11 ->
                     fail("..| The CPF field needs to be 11 numbers long. |..")
@@ -96,7 +90,7 @@ class Pessoa private constructor(
                     fail("..| The RG field needs at least 6 numbers |..")
 
                 else -> {
-                    val p = Pessoa(
+                    val p = Person(
                         id = id,
                         name = name,
                         birthday = LocalDate.parse(

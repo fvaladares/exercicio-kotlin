@@ -1,11 +1,11 @@
 package dev.estudos.kotlin.exercicios.pessoas.repository
 
-import dev.estudos.kotlin.exercicios.pessoas.model.Pessoa
+import dev.estudos.kotlin.exercicios.pessoas.model.Person
 import dev.estudos.kotlin.exercicios.pessoas.util.fail
 
 class PeopleRepository {
 
-    private val peopleList = mutableListOf<Pessoa>()
+    private val peopleList = mutableListOf<Person>()
 
 
     /**
@@ -13,11 +13,11 @@ class PeopleRepository {
      *      * and returns a reference to it self
      *      * or an Exception, if the CPF was used before.
      */
-    fun add(pessoa: Pessoa): PeopleRepository {
+    fun add(person: Person): PeopleRepository {
 
-        cpfWasUsedBefore(pessoa.cpf).also {
+        cpfWasUsedBefore(person.cpf).also {
             when {
-                it -> peopleList.add(pessoa)
+                it -> peopleList.add(person)
                 else -> fail(".| This CPF was used before. |.")
             }
         }
@@ -25,8 +25,8 @@ class PeopleRepository {
         return this
     }
 
-    fun addAll(pessoas: List<Pessoa>) {
-        peopleList.addAll(pessoas)
+    fun addAll(people: List<Person>) {
+        peopleList.addAll(people)
     }
 
 
@@ -44,35 +44,35 @@ class PeopleRepository {
     }
 
 
-    fun getAll(): MutableList<Pessoa> {
+    fun getAll(): MutableList<Person> {
         return this.peopleList
     }
 
 
-    fun getById(id: Int): Pessoa {
+    fun getById(id: Int): Person {
         TODO("Filter people by id")
         return TODO()
     }
 
-    fun findByName(nome: String): List<Pessoa> {
+    fun findByName(nome: String): List<Person> {
         return TODO("Filter people by name")
     }
 
 
     // TODO("Refactor to return just one result")
-    fun findByCPF(cpf: String): List<Pessoa> {
+    fun findByCPF(cpf: String): List<Person> {
 
         return peopleList.filter {
             it.cpf == cpf
         }
     }
 
-    fun findBy(search: (p: Pessoa) -> Boolean): List<Pessoa> {
+    fun findBy(search: (p: Person) -> Boolean): List<Person> {
         TODO("Create a filter that accepts a lambda expression")
         return emptyList()
     }
 
-    fun update(pessoa: Pessoa): Boolean {
+    fun update(person: Person): Boolean {
         TODO("Implement the update function")
         return false
     }

@@ -10,9 +10,9 @@
 
 # Regras de Negócio:
 
-    Ao adicionar uma pessoa gerar o ID de forma sequencial
+    Ao adicionar uma person gerar o ID de forma sequencial
 
-    Ao adicionar uma pessoa, o sistema deve realizar as validações
+    Ao adicionar uma person, o sistema deve realizar as validações
 
     2.1 o ID nao deve ser informado, pois será gerado automaticamente
 
@@ -30,16 +30,16 @@
 
     2.8 Campo telefone deve seguir o padrão 00 0000-0000 ou 00 00000-0000
 
-    Se uma pessoa for removida, o ID não pode ser reaproveitado
+    Se uma person for removida, o ID não pode ser reaproveitado
 
-    Ao atualizar uma pessoa, se o ID informado não existir deve retornar um erro
+    Ao atualizar uma person, se o ID informado não existir deve retornar um erro
 
-    Ao remover uma pessoa e o ID nao existir deve retornar um erro
+    Ao remover uma person e o ID nao existir deve retornar um erro
 
     
 
     6.1 Formula: IMC = PESO / ALTURA²
-    6.2 Se a pessoa nao tiver peso ou altura cadastrados deve retornar um erro com a mensagem informado qual ou quais campos estão ausentes
+    6.2 Se a person nao tiver peso ou altura cadastrados deve retornar um erro com a mensagem informado qual ou quais campos estão ausentes
 
     O sistema nao deve aceitar adicionar um CPF que já existe
 

@@ -4,15 +4,15 @@ import org.junit.jupiter.api.*
 import org.junit.jupiter.api.Assertions.assertNotNull
 import java.math.BigDecimal
 
-internal class PessoaTest {
-    lateinit var pessoa: Pessoa
+internal class PersonTest {
+    lateinit var person: Person
 
     @Test
     @DisplayName("user don't set the height and weight")
     fun calcIMCFailWeightHeight() {
 
         val msg = assertThrows<Exception> {
-            pessoa.calcIMC()
+            person.calcIMC()
         }
         println(msg.message)
     }
@@ -21,9 +21,9 @@ internal class PessoaTest {
     @DisplayName("user don't set the height")
     fun calcIMCFailHeight() {
 
-        pessoa.weight = BigDecimal(84.00)
+        person.weight = BigDecimal(84.00)
         val msg = assertThrows<Exception> {
-            pessoa.calcIMC()
+            person.calcIMC()
         }
         println(msg.message)
     }
@@ -33,9 +33,9 @@ internal class PessoaTest {
     @DisplayName("user don't set the weight")
     fun calcIMCFailWeight() {
 
-        pessoa.height = BigDecimal(1.87)
+        person.height = BigDecimal(1.87)
         val msg = assertThrows<Exception> {
-            pessoa.calcIMC()
+            person.calcIMC()
         }
         println(msg.message)
     }
@@ -43,10 +43,10 @@ internal class PessoaTest {
     @Test
     @DisplayName("user set the height")
     fun calcIMCPass() {
-        pessoa.weight = BigDecimal(84.00)
-        pessoa.height = BigDecimal(1.87)
+        person.weight = BigDecimal(84.00)
+        person.height = BigDecimal(1.87)
         assertDoesNotThrow {
-            pessoa.calcIMC()
+            person.calcIMC()
         }
     }
 
@@ -58,7 +58,7 @@ internal class PessoaTest {
         println("1234567890".length)
         println()
 
-        val pessoa2 = Pessoa.create(
+        val pessoa2 = Person.create(
             name = "Test User",
             birthday = "16/11/1982",
             phone = "31 993576193",
@@ -79,7 +79,7 @@ internal class PessoaTest {
 
     @BeforeEach
     fun init() {
-        pessoa = Pessoa.create(
+        person = Person.create(
             name = "Test User",
             birthday = "16/11/1982",
             phone = "31 993576193",
