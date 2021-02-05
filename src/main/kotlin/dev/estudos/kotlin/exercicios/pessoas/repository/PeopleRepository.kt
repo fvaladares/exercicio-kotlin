@@ -3,7 +3,7 @@ package dev.estudos.kotlin.exercicios.pessoas.repository
 import dev.estudos.kotlin.exercicios.pessoas.model.Pessoa
 import dev.estudos.kotlin.exercicios.pessoas.util.fail
 
-class PessoaRepository {
+class PeopleRepository {
 
     private val peopleList = mutableListOf<Pessoa>()
 
@@ -13,7 +13,7 @@ class PessoaRepository {
      *      * and returns a reference to it self
      *      * or an Exception, if the CPF was used before.
      */
-    fun add(pessoa: Pessoa): PessoaRepository {
+    fun add(pessoa: Pessoa): PeopleRepository {
 
         cpfWasUsedBefore(pessoa.cpf).also {
             when {

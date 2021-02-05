@@ -7,7 +7,7 @@ import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 
-internal class PessoaRepositoryTest {
+internal class PeopleRepositoryTest {
 
     //Mock data:
 
@@ -47,7 +47,7 @@ internal class PessoaRepositoryTest {
 //            "MG"
 //        ),
 //    )
-    private lateinit var repository: PessoaRepository
+    private lateinit var repository: PeopleRepository
 
     @BeforeEach
     fun init() {
@@ -101,13 +101,13 @@ internal class PessoaRepositoryTest {
             )
         }
 
-        repository = PessoaRepository()
+        repository = PeopleRepository()
         repository.addAll(pessoas = listOfPessoa)
     }
 
     @AfterEach
     private fun cleanUp() {
-        repository = PessoaRepository()
+        repository = PeopleRepository()
     }
 
 
