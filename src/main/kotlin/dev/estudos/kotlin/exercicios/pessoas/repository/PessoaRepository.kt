@@ -15,7 +15,7 @@ class PessoaRepository {
      */
     fun add(pessoa: Pessoa): PessoaRepository {
 
-        cpfValidation(pessoa.cpf).also {
+        cpfWasUsedBefore(pessoa.cpf).also {
             when {
                 it -> peopleList.add(pessoa)
                 else -> fail(".| This CPF was used before. |.")
@@ -35,7 +35,7 @@ class PessoaRepository {
      *      * 11 int long
      *      ** If the informed cpf is in the list, it will return false otherwise true
      */
-    private fun cpfValidation(cpf: String): Boolean {
+    private fun cpfWasUsedBefore(cpf: String): Boolean {
         val validator = peopleList.filter {
             it.cpf == cpf
         }
