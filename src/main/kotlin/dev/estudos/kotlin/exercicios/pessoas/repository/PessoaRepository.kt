@@ -25,6 +25,10 @@ class PessoaRepository {
         return this
     }
 
+    fun addAll(pessoas: List<Pessoa>) {
+        peopleList.addAll(pessoas)
+    }
+
 
     /**
      *  This method check if the informed CPF is valid according to the specification

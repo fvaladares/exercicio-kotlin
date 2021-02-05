@@ -55,7 +55,7 @@ internal class PessoaRepositoryTest {
             name = "Test User",
             birthday = "16/11/1982",
             phone = "31 993576193",
-            cpf = "11111111111",
+            cpf = "27132713321",
             rg = "mg00111222",
             address = Address(
                 "Rua Dama da Noite",
@@ -70,7 +70,7 @@ internal class PessoaRepositoryTest {
             name = "Test User",
             birthday = "16/11/1982",
             phone = "31 993576193",
-            cpf = "11111111112",
+            cpf = "98765432101",
             rg = "mg00111222",
             address = Address(
                 "Rua Dama da Noite",
@@ -81,7 +81,28 @@ internal class PessoaRepositoryTest {
             ),
         )
 
+        val alphabet = 'A'..'Z'
+        for (i in 0..25) {
+            listOfPessoa.add(
+                Pessoa.create(
+                    name = "${alphabet.elementAt(i)}user Name",
+                    birthday = if (i < 10) "16/11/198$i" else "16/11/19$i",
+                    phone = "31 93576193$i",
+                    cpf = if (i < 10) "2111111333$i" else "111111111$i",
+                    rg = "mg0011122$i",
+                    address = Address(
+                        "Rua Dama da Noite",
+                        "i",
+                        "Morada dos hibiscos",
+                        "Pedro Leopoldo",
+                        "MG"
+                    ),
+                ),
+            )
+        }
+
         repository = PessoaRepository()
+        repository.addAll(pessoas = listOfPessoa)
     }
 
     @AfterEach
