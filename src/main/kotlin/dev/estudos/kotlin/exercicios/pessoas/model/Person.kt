@@ -61,6 +61,16 @@ data class Person constructor(
             }
         }
 
+        private fun validatePhone(phoneNumber: String): Boolean {
+            val purePhoneNumber = phoneNumber.replace('.', ' ')
+                .replace('-', ' ').filter { !it.isWhitespace() }
+            return when {
+                purePhoneNumber.toLongOrNull() == null -> false
+                purePhoneNumber.length < 10 || purePhoneNumber.length > 11 -> false
+                else -> true
+            }
+        }
+
 
         /**
          * Creates a new People object and returns a self-reference
@@ -89,6 +99,16 @@ data class Person constructor(
                 !validateRG(rg) ->
                     fail("..| The RG field needs at least 6 numbers |..")
 
+                !validatePhone(phone) ->
+                    fail("""=== 
+                        
+                        ..|The phone number must have 10 or 11 digits. 31 1234-5678 or 31 91234-5678 |..
+                        
+                        Informed number: $phone
+                        
+                        ===
+                        """.trimMargin())
+
                 else -> {
                     val p = Person(
                         id = id,
@@ -97,7 +117,9 @@ data class Person constructor(
                             birthday,
                             DateTimeFormatter.ofPattern("dd/MM/yyyy")
                         ),
-                        phone = phone,
+                        phone = phone.replace('.', ' ')
+                            .replace('-', ' ')
+                            .trim(),
                         cpf = cpf,
                         rg = rg,
                         sex = sex,

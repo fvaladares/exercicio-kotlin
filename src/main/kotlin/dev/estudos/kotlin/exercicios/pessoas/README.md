@@ -9,7 +9,7 @@ TODO
 * **Passar as validações para o repositório??**
 * Criar testes personalizados antes das implementações.
 
-
+* Mascarar padrão 00 0000-0000 ou 00 00000-0000
 * Mascarar CPF
 * Validar Nome:
     * Regras para o campo nome
@@ -38,9 +38,8 @@ Ada L Sousa |   (Correto)
 DOING
 ---
 
-* Telefone:
-    * Validar valor informado
-    * Mascarar padrão 00 0000-0000 ou 00 00000-0000
+
+
 
 
 DONE
@@ -48,3 +47,5 @@ DONE
 
 * ~~Transformar pessoa em DataClass~~
 * ~~Alterar o retorno da lista de pessoas~~
+* ~~Telefone:~~
+    * ~~Validar valor informado~~
