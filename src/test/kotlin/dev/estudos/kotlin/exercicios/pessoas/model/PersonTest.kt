@@ -115,13 +115,24 @@ internal class PersonTest {
         }
     }
 
+
+    /**
+     * Input	Result
+    A L	(Incorreto)
+    A L Sousa	(Incorreto)
+    Ada Li	(Correto)
+    Ada li	(Incorreto)
+    Ada L	(Incorreto)
+    Ada L Sousa	(Correto
+     */
+
     @Test
     @DisplayName("Test the exception when the name do not match with the pattern")
     fun testNameFail() {
         var pessoa2: Person
         assertThrows<ExceptionInInitializerError> {
             pessoa2 = Person.create(
-                name = "t u",
+                name = "f g valadares",
                 birthday = "16/11/1982",
                 phone = "31 99357-6193",
                 cpf = "01234567890",

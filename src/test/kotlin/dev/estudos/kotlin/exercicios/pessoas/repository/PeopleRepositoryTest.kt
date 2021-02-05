@@ -86,7 +86,7 @@ internal class PeopleRepositoryTest {
 
     @Test
     @DisplayName("Try to add one person (new one)")
-    fun addNew1() {
+    fun testAddNew1() {
         with(repository) {
             assertDoesNotThrow {
                 add(person)
@@ -110,7 +110,6 @@ internal class PeopleRepositoryTest {
                 it
             }.joinToString("\n"))
         }
-//        println(newPeopleList.joinToString("\n"))
     }
 
     @Test
@@ -133,7 +132,6 @@ internal class PeopleRepositoryTest {
             { assertNotNull(localPerson) },
             { assertEquals(cpf, localPerson.cpf) }
         )
-
     }
 
 
@@ -157,18 +155,18 @@ internal class PeopleRepositoryTest {
     fun delete() {
     }
 
-//    @Test
-//    fun testGetByIdPass() {
-//        val id = 5
-//        var person: Person
-//
-//        assertDoesNotThrow{
-//            person = repository.getById(id)
-//            println(person)
-//        }
-//
-//
-//    }
+    @Test
+    fun testGetByIdPass() {
+        val id = 31
+        var person: Person
+
+        assertDoesNotThrow {
+            person = repository.getById(id)
+            println(person)
+        }
+
+
+    }
 
     @Test
     @DisplayName("Test getById with an invalid ID")

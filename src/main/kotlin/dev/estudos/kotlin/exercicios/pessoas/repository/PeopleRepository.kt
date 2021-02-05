@@ -3,6 +3,7 @@ package dev.estudos.kotlin.exercicios.pessoas.repository
 import dev.estudos.kotlin.exercicios.pessoas.model.Person
 import dev.estudos.kotlin.exercicios.pessoas.util.fail
 import java.util.*
+import java.util.logging.Logger
 
 class PeopleRepository {
 
@@ -57,6 +58,21 @@ class PeopleRepository {
 
     @Throws(NoSuchElementException::class)
     fun getById(id: Int): Person {
+        val log = Logger.getLogger(javaClass.toString())
+        val message = """
+            
+            *** 
+            Stating log
+            
+                %s
+        """.trimIndent()
+        log.info(message.format("""
+            
+            ID = $id
+            
+            peopleList size: $peopleList
+            
+            ***""".trimIndent()))
         return peopleList.first { it.id == id }
     }
 
