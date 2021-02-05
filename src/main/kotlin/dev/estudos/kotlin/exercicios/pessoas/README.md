@@ -9,15 +9,15 @@ TODO
 * **Passar as validações para o repositório??**
 * Criar testes personalizados antes das implementações.
 
-* Mascarar telefone padrão 00 0000-0000 ou 00 00000-0000
+
 * Mascarar CPF
 * Validar Nome:
     * Regras para o campo nome
         * deve ter pelo menos duas palavras
         * deve ter pelo menos uma palavra com mais de 2 letras
-        * Só aceitar alguma palavra com uma letra se o nome tiver mais de 2 palavras
-        * A primeira palavra deve ter mais de uma letra
-        * Palavras com mais mais duas letras ou mais devem iniciar com maiuscula
+        * Só aceitar alguma palavra com uma letra se o nome tiver mais de 2 palavras.
+        * A primeira palavra deve ter mais de uma letra.
+        * Palavras com mais duas letras ou mais devem iniciar com maiúscula.
 
 Exemplos:
 
@@ -38,6 +38,9 @@ Ada L Sousa |   (Correto)
 DOING
 ---
 
+* Telefone:
+    * Validar valor informado
+    * Mascarar padrão 00 0000-0000 ou 00 00000-0000
 
 
 DONE
