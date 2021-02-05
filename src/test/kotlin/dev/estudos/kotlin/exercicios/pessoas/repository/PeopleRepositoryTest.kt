@@ -2,51 +2,22 @@ package dev.estudos.kotlin.exercicios.pessoas.repository
 
 import dev.estudos.kotlin.exercicios.pessoas.model.Address
 import dev.estudos.kotlin.exercicios.pessoas.model.Person
-import org.junit.jupiter.api.AfterEach
-import org.junit.jupiter.api.BeforeEach
-import org.junit.jupiter.api.DisplayName
-import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.*
+import org.junit.jupiter.api.Assertions.assertAll
+import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.Assertions.assertNotNull
 
 internal class PeopleRepositoryTest {
 
-    //Mock data:
-
-    val listOfPessoa by lazy {
+    /**
+     * Mock data (begin)
+     */
+    private val peopleList by lazy {
         mutableListOf<Person>()
     }
 
     private lateinit var person: Person
     private lateinit var person2: Person
-
-//    private val person: Person = Person.create(
-//        name = "Test User",
-//        birthday = "16/11/1982",
-//        phone = "31 993576193",
-//        cpf = "11111111111",
-//        rg = "mg00111222",
-//        address = Address(
-//            "Rua Dama da Noite",
-//            "200",
-//            "Morada dos hibiscos",
-//            "Pedro Leopoldo",
-//            "MG"
-//        ),
-//    )
-
-    //    private val person2 = Person.create(
-//        name = "Test User",
-//        birthday = "16/11/1982",
-//        phone = "31 993576193",
-//        cpf = "11111111112",
-//        rg = "mg00111222",
-//        address = Address(
-//            "Rua Dama da Noite",
-//            "200",
-//            "Morada dos hibiscos",
-//            "Pedro Leopoldo",
-//            "MG"
-//        ),
-//    )
     private lateinit var repository: PeopleRepository
 
     @BeforeEach
@@ -83,7 +54,7 @@ internal class PeopleRepositoryTest {
 
         val alphabet = 'A'..'Z'
         for (i in 0..25) {
-            listOfPessoa.add(
+            peopleList.add(
                 Person.create(
                     name = "${alphabet.elementAt(i)}user Name",
                     birthday = if (i < 10) "16/11/198$i" else "16/11/19$i",
@@ -102,7 +73,7 @@ internal class PeopleRepositoryTest {
         }
 
         repository = PeopleRepository()
-        repository.addAll(people = listOfPessoa)
+        repository.addAll(people = peopleList)
     }
 
     @AfterEach
@@ -110,40 +81,60 @@ internal class PeopleRepositoryTest {
         repository = PeopleRepository()
     }
 
+    /**
+     * Mock data (end)
+     */
+
 
     @Test
     @DisplayName("Try to add one person (new one)")
     fun addNew1() {
         with(repository) {
-            add(person)
-            add(person2)
+            assertDoesNotThrow {
+                add(person)
+            }
+
+            assertDoesNotThrow {
+                add(person2)
+            }
         }
-        getAll()
-        println("""
-            
-            
-            Result filtering by CPF = ${person.cpf}            
-                Result: ${findByCPF(person.cpf).joinToString("\n")}
-            
-            """.trimIndent())
     }
 
+
     @Test
+    @DisplayName("Test the return of getAll method")
     fun getAll() {
-        println(repository.getAll().joinToString("\n"))
+        val newPeopleList = repository.getAll()
+        Assertions.assertEquals(peopleList, newPeopleList)
+
+        newPeopleList.forEach {
+            println(listOf(it).map {
+                it
+            }.joinToString("\n"))
+        }
+//        println(newPeopleList.joinToString("\n"))
     }
 
     @Test
-    fun getById() {
+    @DisplayName("findCPF with a valid value")
+    fun findByCPFValidCPF() {
+        val cpf = "21111113333"
+        val localPerson = repository.findByCPF(cpf)
+        assertAll(
+            "Testing the findByCPF method",
+            { assertNotNull(localPerson) },
+            { assertEquals(cpf, localPerson.first().cpf) }
+        )
+
     }
 
     @Test
-    fun findByName() {
-    }
-
-
-    private fun findByCPF(cpf: String): List<Person> {
-        return repository.findByCPF(cpf)
+    @DisplayName("findCPF with an invalid value")
+    fun findByCPFInvalidCPF() {
+        val cpf = ""
+        val person = repository.findByCPF(cpf)
+        assertNotNull(person)
+        assertEquals(0, person.size)
     }
 
     @Test
@@ -157,4 +148,13 @@ internal class PeopleRepositoryTest {
     @Test
     fun delete() {
     }
+
+    @Test
+    fun getById() {
+    }
+
+    @Test
+    fun findByName() {
+    }
+
 }

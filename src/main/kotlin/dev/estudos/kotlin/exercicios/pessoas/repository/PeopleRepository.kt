@@ -44,8 +44,8 @@ class PeopleRepository {
     }
 
 
-    fun getAll(): MutableList<Person> {
-        return this.peopleList
+    fun getAll(): List<Person> {
+        return this.peopleList.toList()
     }
 
 
@@ -59,12 +59,12 @@ class PeopleRepository {
     }
 
 
-    // TODO("Refactor to return just one result")
+    /**
+     * Returns a list with the filter result
+     * If the CPF was not found, the list will be empty
+     */
     fun findByCPF(cpf: String): List<Person> {
-
-        return peopleList.filter {
-            it.cpf == cpf
-        }
+        return peopleList.filter { it.cpf == cpf }
     }
 
     fun findBy(search: (p: Person) -> Boolean): List<Person> {
