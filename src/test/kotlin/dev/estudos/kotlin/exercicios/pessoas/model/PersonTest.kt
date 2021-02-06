@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Assertions.assertNotNull
 import java.math.BigDecimal
 
 internal class PersonTest {
-    lateinit var person: Person
+    private lateinit var person: Person
 
     @BeforeEach
     fun init() {

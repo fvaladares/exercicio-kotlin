@@ -2,12 +2,14 @@ package dev.estudos.kotlin.exercicios.pessoas.repository
 
 import dev.estudos.kotlin.exercicios.pessoas.model.Person
 import dev.estudos.kotlin.exercicios.pessoas.util.fail
-import java.util.*
 import java.util.logging.Logger
 
 class PeopleRepository {
 
     private val peopleList = mutableListOf<Person>()
+    private val log = Logger.getLogger(javaClass.toString())
+    private val message = """### STARTING LOG   ***< %s >*** ###
+        """.trimIndent()
 
 
     /**
@@ -58,14 +60,7 @@ class PeopleRepository {
 
     @Throws(NoSuchElementException::class)
     fun getById(id: Int): Person {
-        val log = Logger.getLogger(javaClass.toString())
-        val message = """
-            
-            *** 
-            Stating log
-            
-                %s
-        """.trimIndent()
+
         log.info(message.format("""
             
             ID = $id
@@ -76,9 +71,22 @@ class PeopleRepository {
         return peopleList.first { it.id == id }
     }
 
-    fun findByName(nome: String): List<Person> {
-        if (isEmpty()) throw (IllegalStateException("The list is empty"))
-        return TODO("Filter people by name")
+    @Throws(IllegalStateException::class, NoSuchElementException::class)
+    fun findByName(name: String): List<Person> {
+        if (peopleList.isEmpty()) throw (IllegalStateException("The list is empty"))
+
+        val filteredList = peopleList.filter {
+            it.name.equals(name, ignoreCase = true)
+        }
+
+        log.info(message.format(""" NAME = $name, peopleList size: ${peopleList.size} """.trimIndent()))
+
+        return when {
+            filteredList.isNotEmpty() -> filteredList
+            else -> throw(NoSuchElementException("Value not found. Named informed: $name"))
+        }
+
+
     }
 
 
@@ -87,24 +95,24 @@ class PeopleRepository {
      * If the CPF was not found, the list will be empty
      */
     fun findByCPF(cpf: String): Person {
-        if (isEmpty()) throw (IllegalStateException("The list is empty"))
+        if (peopleList.isEmpty()) throw (IllegalStateException("The list is empty"))
         return peopleList.first { it.cpf == cpf }
     }
 
     fun findBy(search: (p: Person) -> Boolean): List<Person> {
-        if (isEmpty()) throw (IllegalStateException("The list is empty"))
+        if (peopleList.isEmpty()) throw (IllegalStateException("The list is empty"))
         TODO("Create a filter that accepts a lambda expression")
         return emptyList()
     }
 
     fun update(person: Person): Boolean {
-        if (isEmpty()) throw (IllegalStateException("The list is empty"))
+        if (peopleList.isEmpty()) throw (IllegalStateException("The list is empty"))
         TODO("Implement the update function")
         return false
     }
 
     fun delete(id: Int): Boolean {
-        if (isEmpty()) throw (IllegalStateException("The list is empty"))
+        if (peopleList.isEmpty()) throw (IllegalStateException("The list is empty"))
         TODO("Implement the delete function")
         return false
     }

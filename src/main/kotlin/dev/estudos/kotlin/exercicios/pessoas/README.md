@@ -8,9 +8,10 @@ TODO
 
 * **Passar as validações para o repositório??**
 * check if the personList is empty (PersonRepository.kt)
-
+* Update person
 * Mascarar padrão 00 0000-0000 ou 00 00000-0000
 * Mascarar CPF
+* Delete person
 
 
 Exemplos:

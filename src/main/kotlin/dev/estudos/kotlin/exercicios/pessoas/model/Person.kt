@@ -46,7 +46,7 @@ data class Person constructor(
 
     companion object {
 
-        var id = 0
+        private var id = 0
 
         private fun validateRG(sentence: String): Boolean {
             var count = 0
@@ -142,7 +142,7 @@ data class Person constructor(
                 else -> {
                     val p = Person(
                         id = id,
-                        name = name.split(" ").map { it.capitalize() }.joinToString(" "),
+                        name = name.split(" ").asSequence().map { it.capitalize() }.joinToString(" "),
                         birthday = LocalDate.parse(
                             birthday,
                             DateTimeFormatter.ofPattern("dd/MM/yyyy")

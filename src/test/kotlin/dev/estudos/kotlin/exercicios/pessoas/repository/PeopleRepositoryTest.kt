@@ -103,9 +103,9 @@ internal class PeopleRepositoryTest {
     @DisplayName("Test the return of getAll method")
     fun testGetAll() {
         val newPeopleList = repository.getAll()
-        Assertions.assertEquals(peopleList, newPeopleList)
+        assertEquals(peopleList, newPeopleList)
 
-        newPeopleList.forEach {
+        newPeopleList.forEach { it ->
             println(listOf(it).map {
                 it
             }.joinToString("\n"))
@@ -164,8 +164,6 @@ internal class PeopleRepositoryTest {
             person = repository.getById(id)
             println(person)
         }
-
-
     }
 
     @Test
@@ -177,7 +175,25 @@ internal class PeopleRepositoryTest {
 
 
     @Test
-    fun findByName() {
+    fun testFindByNamePass() {
+        assertDoesNotThrow {
+            println(repository.findByName("Auser Name"))
+        }
+    }
+
+    @Test
+    fun testFindByNameFail() {
+        assertThrows<NoSuchElementException> {
+            println(repository.findByName("Fabricio Valadares"))
+        }
+    }
+
+    @Test
+    fun testFindByNameFailEmptyList() {
+        repository = PeopleRepository()
+        assertThrows<IllegalStateException> {
+            println(repository.findByName("Fabricio Valadares"))
+        }
     }
 
 }
