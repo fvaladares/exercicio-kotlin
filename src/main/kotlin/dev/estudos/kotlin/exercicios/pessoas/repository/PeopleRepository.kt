@@ -113,7 +113,10 @@ class PeopleRepository {
 
     fun delete(id: Int): Boolean {
         if (peopleList.isEmpty()) throw (IllegalStateException("The list is empty"))
-        TODO("Implement the delete function")
-        return false
+        return try {
+            peopleList.remove(getById(id))
+        } catch (e: NoSuchElementException) {
+            false
+        }
     }
 }

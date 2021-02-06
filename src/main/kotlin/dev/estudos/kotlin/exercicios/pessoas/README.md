@@ -44,6 +44,9 @@ DONE
 * ~~Alterar o retorno da lista de pessoas~~
 * ~~Telefone:~~
     * ~~Validar valor informado~~
+
+* ~~findByName~~
+
 * Validar Nome:
     * Regras para o campo nome
         * deve ter pelo menos duas palavras

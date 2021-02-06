@@ -152,8 +152,15 @@ internal class PeopleRepositoryTest {
     }
 
     @Test
-    fun delete() {
+    fun deletePass() {
+        assertTrue(repository.delete(310))
     }
+
+    @Test
+    fun deleteFailInvalidId() {
+        assertFalse(repository.delete(300))
+    }
+
 
     @Test
     fun testGetByIdPass() {
