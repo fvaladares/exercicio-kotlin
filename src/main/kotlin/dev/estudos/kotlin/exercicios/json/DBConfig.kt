@@ -1,6 +1,6 @@
-package dev.estudos.kotlin.json
+package dev.estudos.kotlin.exercicios.json
 
-class DBConfig(
+data class DBConfig(
     var host: String = "localhost",
     var port: String = "1930",
     var databaseName: String = "Clients",

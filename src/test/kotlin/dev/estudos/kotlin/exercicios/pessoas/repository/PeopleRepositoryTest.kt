@@ -20,6 +20,7 @@ internal class PeopleRepositoryTest {
 
     @BeforeEach
     fun init() {
+
         person = Person.create(
             name = "Test User",
             birthday = "16/11/1982",
@@ -29,7 +30,7 @@ internal class PeopleRepositoryTest {
             address = Address(
                 "Rua Dama da Noite",
                 "200",
-                "Morada dos hibiscos",
+                "Morada dos hibiscus",
                 "Pedro Leopoldo",
                 "MG"
             ),
@@ -44,7 +45,7 @@ internal class PeopleRepositoryTest {
             address = Address(
                 "Rua Dama da Noite",
                 "200",
-                "Morada dos hibiscos",
+                "Morada dos hibiscus",
                 "Pedro Leopoldo",
                 "MG"
             ),
@@ -62,7 +63,7 @@ internal class PeopleRepositoryTest {
                     address = Address(
                         "Rua Dama da Noite",
                         "i",
-                        "Morada dos hibiscos",
+                        "Morada dos hibiscus",
                         "Pedro Leopoldo",
                         "MG"
                     ),
@@ -72,6 +73,13 @@ internal class PeopleRepositoryTest {
 
         repository = PeopleRepository()
         repository.addAll(people = peopleList)
+
+        println("""
+            
+            init executing...
+            ${repository.getAll().size}
+            
+        """.trimIndent())
     }
 
 //    @AfterEach
@@ -153,19 +161,21 @@ internal class PeopleRepositoryTest {
 
     @Test
     fun deletePass() {
-        assertTrue(repository.delete(310))
+        val id = 8
+        assertTrue(repository.delete(id))
     }
 
     @Test
     fun deleteFailInvalidId() {
-        assertFalse(repository.delete(300))
+        val id = 300
+        assertFalse(repository.delete(id))
     }
 
 
     @Test
     fun testGetByIdPass() {
-        val id = 31
-        var person: Person
+        val id = 20
+//        var person: Person
 
         assertDoesNotThrow {
             person = repository.getById(id)

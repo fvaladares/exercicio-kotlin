@@ -6,10 +6,19 @@ import java.util.logging.Logger
 
 class PeopleRepository {
 
+
+    // This class is used to generate an auto incremented id for people
+    private class IdGenerator {
+        private var id = 0
+        fun newId(): Int = id++
+
+    }
+
     private val peopleList = mutableListOf<Person>()
     private val log = Logger.getLogger(javaClass.toString())
     private val message = """### STARTING LOG   ***< %s >*** ###
         """.trimIndent()
+    private val id = IdGenerator()
 
 
     /**
@@ -21,7 +30,10 @@ class PeopleRepository {
 
         cpfWasUsedBefore(person.cpf).also {
             when {
-                it -> peopleList.add(person)
+                it -> {
+                    person.id = id.newId()
+                    peopleList.add(person)
+                }
                 else -> fail(".| This CPF was used before. |.")
             }
         }
@@ -30,9 +42,11 @@ class PeopleRepository {
     }
 
     fun addAll(people: List<Person>) {
+        for (person in people) {
+            person.id = id.newId()
+        }
         peopleList.addAll(people)
     }
-
 
     /**
      *  This method check if the informed CPF is valid according to the specification
@@ -52,16 +66,25 @@ class PeopleRepository {
         return peopleList.size == 0
     }
 
+    // Returns an immutable list with all people
     @Throws(IllegalStateException::class)
     fun getAll(): List<Person> {
         if (isEmpty()) throw (IllegalStateException("The list is empty"))
         return this.peopleList.toList()
     }
 
+    /**
+     * Search a person by ID
+     *
+     * @return Person
+     * @param id
+     * @throws NoSuchElementException::class
+     */
     @Throws(NoSuchElementException::class)
     fun getById(id: Int): Person {
 
         log.info(message.format("""
+            PeopleRepository.getById()
             
             ID = $id
             
@@ -71,6 +94,16 @@ class PeopleRepository {
         return peopleList.first { it.id == id }
     }
 
+
+    /**
+     * Search people by name
+     * @return list of Person
+     * @param name
+     * @throws IllegalStateException::class
+     * @throws NoSuchElementException::class
+     *
+     *
+     */
     @Throws(IllegalStateException::class, NoSuchElementException::class)
     fun findByName(name: String): List<Person> {
         if (peopleList.isEmpty()) throw (IllegalStateException("The list is empty"))
@@ -79,7 +112,11 @@ class PeopleRepository {
             it.name.equals(name, ignoreCase = true)
         }
 
-        log.info(message.format(""" NAME = $name, peopleList size: ${peopleList.size} """.trimIndent()))
+        log.info(message.format("""
+             
+            PeopleRepository.findByName()
+            
+            NAME = $name, peopleList size: ${peopleList.size} """.trimIndent()))
 
         return when {
             filteredList.isNotEmpty() -> filteredList
@@ -91,20 +128,24 @@ class PeopleRepository {
 
 
     /**
-     * Returns a list with the filter result
-     * If the CPF was not found, the list will be empty
+     *
+     * @param cpf
+     * @return Person
+     * @throws IllegalStateException::class
      */
     fun findByCPF(cpf: String): Person {
         if (peopleList.isEmpty()) throw (IllegalStateException("The list is empty"))
         return peopleList.first { it.cpf == cpf }
     }
 
+    // TODO("Implement")
     fun findBy(search: (p: Person) -> Boolean): List<Person> {
         if (peopleList.isEmpty()) throw (IllegalStateException("The list is empty"))
         TODO("Create a filter that accepts a lambda expression")
         return emptyList()
     }
 
+    // TODO("Implement")
     fun update(person: Person): Boolean {
         if (peopleList.isEmpty()) throw (IllegalStateException("The list is empty"))
         TODO("Implement the update function")
@@ -119,4 +160,5 @@ class PeopleRepository {
             false
         }
     }
+
 }
