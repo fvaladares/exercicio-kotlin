@@ -4,6 +4,7 @@ import dev.estudos.kotlin.exercicios.pessoas.model.Address
 import dev.estudos.kotlin.exercicios.pessoas.model.Person
 import org.junit.jupiter.api.*
 import org.junit.jupiter.api.Assertions.*
+import java.math.BigDecimal
 
 internal class PeopleRepositoryTest {
 
@@ -157,6 +158,22 @@ internal class PeopleRepositoryTest {
 
     @Test
     fun update() {
+        var tempPerson = repository.getById(8)
+        val weightOld = tempPerson.weight
+        val weightNew = BigDecimal(87.00)
+        tempPerson.weight = weightNew
+        repository.update(tempPerson)
+
+        tempPerson = repository.getById(8)
+
+        assertAll(
+            "Testing the update process",
+            {
+                assertEquals(weightNew, tempPerson.weight)
+                assertNotEquals(weightOld, tempPerson.weight)
+            },
+        )
+
     }
 
     @Test

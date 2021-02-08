@@ -141,15 +141,22 @@ class PeopleRepository {
     // TODO("Implement")
     fun findBy(search: (p: Person) -> Boolean): List<Person> {
         if (peopleList.isEmpty()) throw (IllegalStateException("The list is empty"))
-        TODO("Create a filter that accepts a lambda expression")
         return emptyList()
     }
 
-    // TODO("Implement")
+
     fun update(person: Person): Boolean {
-        if (peopleList.isEmpty()) throw (IllegalStateException("The list is empty"))
-        TODO("Implement the update function")
-        return false
+        if (isEmpty()) throw (IllegalStateException("The list is empty"))
+
+        val tempPerson = peopleList.find {
+            it.id == person.id
+        } ?: throw NoSuchElementException("Invalid ID, Person not found.")
+
+        val index = peopleList.indexOf(tempPerson)
+
+        peopleList[index] = person
+
+        return true
     }
 
     fun delete(id: Int): Boolean {
